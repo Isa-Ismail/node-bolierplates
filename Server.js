@@ -10,7 +10,6 @@ const db = mysql.createPool ({
     password:"doggo",
     database:"sys"
 })
-
 // app.get('/', (req, res) => {
 //     const sqlInsert = "INSERT INTO student VALUES ( 16, 'HOLAmama')"
 //     db.query(sqlInsert, (err, response) => {
