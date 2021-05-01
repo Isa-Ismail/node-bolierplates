@@ -28,22 +28,22 @@ const db = mysql.createPool ({
 
 let f;
 
-db.query("SELECT * FROM football_clubs WHERE UCL_trophies > 5", (err, res) => {
+db.query("SELECT * FROM football_clubs WHERE UCL_trophies < 5", (err, res) => {
     
     if(err){
         console.log(err)
     }
     else{
         f = res;
-        f.forEach( e => {
-            console.log(e)
+        f.map( e => {
+            console.log(e.club_name)
         })
         console.log(JSON.stringify(f))
     }
 })
 
 app.get('/', (req, res) => {
-    console.log('hello')
+    console.log(req.url, req.method)
     res.send(f)
 })
 
