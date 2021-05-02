@@ -25,7 +25,6 @@ const db = mysql.createPool ({
 //     })
 // })
 
-
 let f;
 
 db.query("SELECT * FROM football_clubs WHERE UCL_trophies < 5", (err, res) => {
