@@ -10,6 +10,15 @@ app.set('view engine', 'ejs');
 //public
 app.use(express.static('public'));
 
+//morgan middleware
+app.use(morgan('dev'));
+
+//random middleware
+app.use((req, res, next) => {
+  console.log("hostname: "+ req.hostname)
+  next()
+})
+
 app.get('/', (req, res) => {
     const blogs = [
       {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
