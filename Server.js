@@ -27,7 +27,9 @@ const db = mysql.createPool ({
 
 let f;
 
-db.query("SELECT * FROM football_clubs WHERE UCL_trophies < 5", (err, res) => {
+let query = "SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT min(UCL_trophies) FROM sys.football_clubs)"
+
+db.query( query , (err, res) => {
     
     if(err){
         console.log(err)
