@@ -1,14 +1,25 @@
 const express = require('express')
 const mysql = require('mysql')
+const cors = require('cors')
+
+
 const app = express()
 const port = process.env.PORT || 5000
 
-const db = mysql.createPool ({
+const db = mysql.createConnection ({
     host:"192.168.31.138",
     user:"root",
     port:3301,
     password:"doggo",
     database:"sys"
+})
+
+db.connect((err, res) => {
+    if(err){
+        console.log(err)
+    }else{
+        console.log('database interpreted')
+    }
 })
 
 // app.get('/', (req, res) => {
@@ -27,25 +38,24 @@ const db = mysql.createPool ({
 
 let f;
 
-let query = "SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT min(UCL_trophies) FROM sys.football_clubs)"
+app.get('/', (req, result) => {
+    let query = "SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT max(UCL_trophies) FROM sys.football_clubs)"
 
-db.query( query , (err, res) => {
-    
-    if(err){
-        console.log(err)
-    }
-    else{
-        f = res;
-        f.map( e => {
-            console.log(e.club_name)
-        })
-        console.log(JSON.stringify(f))
-    }
-})
-
-app.get('/', (req, res) => {
-    console.log(req.url, req.method)
-    res.send(f)
+        db.query( query , (err, res) => {
+            
+            if(err){
+                console.log(err)
+            }
+            else{
+                f = res;
+                f.map( e => {
+                    console.log(e.club_name)
+                })
+                console.log(JSON.stringify(f))
+                result.send(f)
+                }
+            })
+            console.log(req.url, req.method)
 })
 
 app.listen(port, () => console.log(`Example app listening on port ${port}`))
