@@ -39,7 +39,7 @@ db.connect((err, res) => {
 let f;
 
 app.get('/', (req, result) => {
-    let query = "SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT max(UCL_trophies) FROM sys.football_clubs)"
+    let query = `SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT max(UCL_trophies) FROM sys.football_clubs)`
 
         db.query( query , (err, res) => {
             
