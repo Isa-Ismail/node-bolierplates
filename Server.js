@@ -18,7 +18,7 @@ db.connect((err, res) => {
     if(err){
         console.log(err)
     }else{
-        console.log('database interpreted')
+        console.log('database interpreted successfully')
     }
 })
 
@@ -39,7 +39,7 @@ db.connect((err, res) => {
 let f;
 
 app.get('/', (req, result) => {
-    let query = `SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT max(UCL_trophies) FROM sys.football_clubs)`
+    let query = `SELECT * FROM sys.football_clubs WHERE UCL_trophies IN (SELECT min(UCL_trophies) FROM sys.football_clubs)`
 
         db.query( query , (err, res) => {
             
@@ -52,7 +52,7 @@ app.get('/', (req, result) => {
                     console.log(e.club_name)
                 })
                 console.log(JSON.stringify(f))
-                result.send(f)
+                result.json(f)
                 }
             })
             console.log(req.url, req.method)
