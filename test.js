@@ -4,6 +4,6 @@ app.name = 'whole'
 
 app.hola = 'koo'
 
-app.age = 24
+app.age = 22
 
 console.log(app)
